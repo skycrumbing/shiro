@@ -1,0 +1,27 @@
+## Subject
+Subject即主体，外部应用与subject进行交互，subject记录了当前操作用户，将用户的概念理解为当前操作的主体，
+可能是一个通过浏览器请求的用户，也可能是一个运行的程序。 Subject在shiro中是一个接口，接口中定义了很多认证
+授相关的方法，外部程序通过subject进行认证授，而subject是通过SecurityManager安全管理器进行认证授权 
+SecurityManager 
+## SecurityManager
+即安全管理器，对全部的subject进行安全管理，它是shiro的核心，负责对所有的subject进行安全管理。通过SecurityManager
+可以完成subject的认证、授权等，实质上SecurityManager是通过Authenticator进行认证，通过Authorizer进行授权，通过
+SessionManager进行会话管理等。SecurityManager是一个接口，继承了Authenticator, Authorizer, SessionManager这三
+个接口。Authenticator
+## Authenticator
+即认证器，对用户身份进行认证，Authenticator是一个接口，shiro提供ModularRealmAuthenticator实现类，通过
+ModularRealmAuthenticator基本上可以满足大多数需求，也可以自定义认证器。
+## Authorizer
+Authorizer即授权器，用户通过认证器认证通过，在访问功能时需要通过授权器判断用户是否有此功能的操作权限。
+## realm
+Realm即领域，相当于datasource数据源，securityManager进行安全认证需要通过Realm获取用户权限数据，比如：
+如果用户身份数据在数据库那么realm就需要从数据库获取用户身份信息。
+注意：不要把realm理解成只是从数据源取数据，在realm中还有认证授权校验的相关的代码。
+## sessionManager
+sessionManager即会话管理，shiro框架定义了一套会话管理，它不依赖web容器的session，所以shiro可以使用在非web应用上，也可以将分布式应用的会话集中在一点管理，此特性可使它实现单点登录。
+## SessionDAO
+SessionDAO即会话dao，是对session会话操作的一套接口，比如要将session存储到数据库，可以通过jdbc将会话存储到数据库。
+## CacheManager
+CacheManager即缓存管理，将用户权限数据存储在缓存，这样可以提高性能。
+## Cryptography
+Cryptography即密码管理，shiro提供了一套加密/解密的组件，方便开发。比如提供常用的散列、加/解密等功能。
